@@ -1,0 +1,38 @@
+@startuml
+package "Shared Context" {
+class "Money" {
+    *amount: BigDecimal
+    *currency: Currency
+    --
+    +add(other: Money): Money
+    +multiply(multiplier: int): Money
+}
+
+class "Address" {
+*street: String
+*number: String
+*city: String
+*postalCode: String
+*country: String
+}
+
+class "CustomerId" {
+*value: UUID
+}
+}
+
+package "CRM" {
+class "Customer" {
+*id: CustomerId
+--
+*name: String
+*email: String
+*address: Address
+--
++updateContactInfo(email: String, address: Address): void
++getContactInfo(): String
+}
+}
+Customer o--> "1" Address
+Customer o--> "1" CustomerId
+@enduml
